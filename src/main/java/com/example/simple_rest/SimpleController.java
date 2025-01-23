@@ -37,6 +37,12 @@ public class SimpleController {
     public ResponseEntity<User> login() {
         User user = new User("admin", "admin");
 
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return ResponseEntity.ok(user);
     }
 }
