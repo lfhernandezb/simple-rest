@@ -69,7 +69,10 @@ public class WebSecurityConfig {
                 }))
 
                 .authorizeHttpRequests(
-                        auth -> auth.requestMatchers("/api/customers/**", "/api/**", "/actuator/**").permitAll()
+                        auth -> auth.requestMatchers("/api/customers/**",
+                                        "/api/greeting", "/api/delay", "/api/echo", "/api/alert",
+                                        "/api/login", "/actuator/**").permitAll()
+
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
