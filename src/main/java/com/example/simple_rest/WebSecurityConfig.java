@@ -70,7 +70,7 @@ public class WebSecurityConfig {
 
                 .authorizeHttpRequests(
                         auth -> auth.requestMatchers("/api/customers/**",
-                                        "/api/greeting", "/api/delay", "/api/echo", "/api/alert",
+                                        "/api/greeting", "/api/greeting2", "/api/delay", "/api/echo", "/api/alert",
                                         "/api/login", "/actuator/**").permitAll()
 
                                 .anyRequest().authenticated()

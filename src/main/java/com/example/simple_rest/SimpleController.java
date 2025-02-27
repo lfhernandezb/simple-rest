@@ -2,13 +2,21 @@ package com.example.simple_rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api")
 public class SimpleController {
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     private Logger logger = LoggerFactory.getLogger(SimpleController.class);
 
@@ -55,5 +63,25 @@ public class SimpleController {
         }
 
         return ResponseEntity.ok(user);
+    }
+
+    @GetMapping("/greeting2")
+    public String getGreeting2() {
+        System.out.println("getGreeting2");
+        // we call an external api
+        String url = "http://localhost:8080/api/greeting";
+
+        // Create headers
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBasicAuth("username", "password"); // Replace with actual credentials
+
+        // Create entity
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        // Make the request
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+        return response.getBody();
+
     }
 }
